@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Meenakshi Joshi — Full-Stack & AI Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #09090F;
+    --surface: #111118;
+    --card: #16161F;
+    --border: #242436;
+    --text: #EEEEF5;
+    --muted: #8080A0;
+    --violet: #7C5CFC;
+    --lime: #C8F135;
+    --violet-glow: rgba(124,92,252,0.13);
+    --lime-glow: rgba(200,241,53,0.10);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 6%; background: rgba(9,9,15,0.88);
+    backdrop-filter: blur(18px); border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--lime); letter-spacing: 0.03em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.83rem; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 6% 5rem; position: relative; overflow: hidden; }
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 56px 56px; opacity: 0.28; pointer-events: none;
+  }
+  .hero-glow { position: absolute; top: 15%; right: 8%; width: 480px; height: 480px; background: var(--violet); border-radius: 50%; filter: blur(150px); opacity: 0.1; pointer-events: none; }
+  .hero-glow2 { position: absolute; bottom: 10%; left: 5%; width: 300px; height: 300px; background: var(--lime); border-radius: 50%; filter: blur(130px); opacity: 0.05; pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; max-width: 920px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--violet-glow); border: 1px solid rgba(124,92,252,0.3);
+    padding: 0.38rem 1rem; border-radius: 100px;
+    font-size: 0.76rem; color: #A090FF;
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 1.8rem; letter-spacing: 0.04em;
+  }
+  .dot-green { width: 7px; height: 7px; background: var(--lime); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+  h1.hero-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(3rem, 7.5vw, 6.8rem); font-weight: 700;
+    line-height: 0.97; letter-spacing: -0.035em; margin-bottom: 1.2rem;
+  }
+  h1.hero-name .accent { color: var(--violet); }
+
+  .typewriter-wrap {
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.8rem;
+    font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+    font-weight: 400; color: var(--muted); height: 2.4rem;
+  }
+  .tw-prefix { color: var(--lime); font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+  #tw { color: var(--text); }
+  .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--violet); animation: blink 0.9s infinite; vertical-align: text-bottom; margin-left: 2px; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .hero-desc { font-size: 1.02rem; color: var(--muted); max-width: 600px; line-height: 1.8; margin-bottom: 2.5rem; }
+  .hero-desc strong { color: var(--text); }
+
+  .ctas { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+  .btn-v { background: var(--violet); color: #fff; padding: 0.78rem 1.9rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.88rem; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 0.45rem; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn-v:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,92,252,0.45); }
+  .btn-o { border: 1px solid var(--border); color: var(--muted); padding: 0.78rem 1.9rem; border-radius: 8px; text-decoration: none; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.45rem; transition: all 0.2s; }
+  .btn-o:hover { border-color: var(--violet); color: var(--violet); }
+
+  .stats { display: flex; gap: 3.5rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat-n { font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; line-height: 1; }
+  .stat-n .u { color: var(--violet); }
+  .stat-l { font-size: 0.76rem; color: var(--muted); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* SECTIONS */
+  section { padding: 6rem 6%; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--violet); text-transform: uppercase; letter-spacing: 0.13em; margin-bottom: 0.7rem; }
+  .sec-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.9rem; }
+  .sec-sub { color: var(--muted); font-size: 0.97rem; max-width: 520px; margin-bottom: 3rem; line-height: 1.75; }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: start; }
+  .about-text p { color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; font-size: 0.95rem; }
+  .about-text p strong { color: var(--text); }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.5rem; }
+  .tag { background: var(--card); border: 1px solid var(--border); padding: 0.28rem 0.85rem; border-radius: 100px; font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  .exp-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .exp-item { display: flex; gap: 1rem; padding: 1.3rem 1.5rem; border-bottom: 1px solid var(--border); align-items: flex-start; transition: background 0.2s; }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-item:hover { background: rgba(124,92,252,0.04); }
+  .exp-icon { width: 38px; height: 38px; border-radius: 9px; background: var(--violet-glow); border: 1px solid rgba(124,92,252,0.25); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+  .exp-role { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .exp-co { font-size: 0.78rem; color: var(--violet); margin-top: 0.15rem; }
+  .exp-period { font-size: 0.72rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-top: 0.2rem; }
+
+  /* EXPERIENCE DETAIL */
+  #experience { background: var(--bg); }
+  .exp-detail-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem 2.2rem; margin-bottom: 1.5rem;
+    position: relative; overflow: hidden;
+  }
+  .exp-detail-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: linear-gradient(180deg, var(--violet), transparent); }
+  .exp-detail-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.5rem; }
+  .exp-detail-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 700; }
+  .exp-detail-co { color: var(--violet); font-size: 0.85rem; margin-top: 0.2rem; }
+  .exp-detail-period { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 0.3rem 0.8rem; border-radius: 6px; white-space: nowrap; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-bullets li { color: var(--muted); font-size: 0.88rem; line-height: 1.7; display: flex; gap: 0.7rem; }
+  .exp-bullets li::before { content: '▸'; color: var(--violet); flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* PROJECTS */
+  #projects { background: var(--surface); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.4rem; }
+  .proj-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.7rem;
+    display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden;
+  }
+  .proj-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--violet), var(--lime)); opacity: 0; transition: opacity 0.2s; }
+  .proj-card:hover { border-color: rgba(124,92,252,0.5); transform: translateY(-3px); }
+  .proj-card:hover::after { opacity: 1; }
+  .proj-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+  .proj-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--violet-glow); border: 1px solid rgba(124,92,252,0.22); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+  .proj-badge { font-size: 0.69rem; padding: 0.22rem 0.65rem; border-radius: 100px; font-family: 'JetBrains Mono', monospace; }
+  .badge-prod { background: var(--lime-glow); border: 1px solid rgba(200,241,53,0.25); color: var(--lime); }
+  .badge-proj { background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+  .badge-intern { background: rgba(124,92,252,0.12); border: 1px solid rgba(124,92,252,0.25); color: #A090FF; }
+  .proj-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .proj-date { font-size: 0.72rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.7rem; }
+  .proj-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.72; flex: 1; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1.1rem; }
+  .chip { font-size: 0.69rem; padding: 0.18rem 0.55rem; border-radius: 4px; background: rgba(124,92,252,0.09); color: var(--violet); font-family: 'JetBrains Mono', monospace; border: 1px solid rgba(124,92,252,0.18); }
+  .proj-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+  .plink { font-size: 0.78rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; transition: color 0.2s; }
+  .plink:hover { color: var(--violet); }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.3rem; }
+  .skill-group { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; }
+  .sg-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--lime); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.9rem; }
+  .pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .pill { background: var(--surface); border: 1px solid var(--border); color: var(--muted); font-size: 0.76rem; padding: 0.25rem 0.75rem; border-radius: 6px; font-family: 'JetBrains Mono', monospace; transition: border-color 0.2s, color 0.2s; cursor: default; }
+  .pill:hover { border-color: var(--violet); color: var(--violet); }
+
+  /* ACHIEVEMENTS */
+  #achievements { background: var(--surface); }
+  .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.3rem; }
+  .ach-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; display: flex; gap: 1rem; }
+  .ach-icon { width: 40px; height: 40px; border-radius: 9px; background: var(--lime-glow); border: 1px solid rgba(200,241,53,0.18); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .ach-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .ach-sub { font-size: 0.75rem; color: var(--violet); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.4rem; }
+  .ach-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  /* SPEAKING */
+  #speaking { background: var(--bg); }
+  .speak-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.3rem; }
+  .speak-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .speak-icon { width: 40px; height: 40px; border-radius: 9px; background: var(--violet-glow); border: 1px solid rgba(124,92,252,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .speak-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .speak-meta { font-size: 0.73rem; color: var(--violet); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.35rem; }
+  .speak-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  /* CONTACT */
+  #contact { background: var(--surface); text-align: center; }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+  .clink { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); text-decoration: none; font-size: 0.85rem; padding: 0.65rem 1.3rem; border-radius: 8px; border: 1px solid var(--border); transition: all 0.2s; }
+  .clink:hover { border-color: var(--violet); color: var(--violet); background: var(--violet-glow); }
+
+  footer { text-align: center; padding: 2rem 6%; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.76rem; font-family: 'JetBrains Mono', monospace; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    section { padding: 4rem 5%; }
+    .stats { gap: 2rem; }
+  }
+  @media (max-width: 500px) {
+    .nav-links { display: none; }
+    h1.hero-name { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">meenakshi.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="dot-green"></div>Actively seeking roles — Open to Relocation</div>
+    <h1 class="hero-name">Meenakshi<br/><span class="accent">Joshi</span></h1>
+    <div class="typewriter-wrap">
+      <span class="tw-prefix">~/</span>
+      <span id="tw"></span>
+      <span class="cursor"></span>
+    </div>
+    <p class="hero-desc">
+      CS graduate who built <strong>two production backend systems</strong> for a Dubai fintech — real wallets, real payroll, real KYC across 20+ countries.
+      I work across the full stack with <strong>FastAPI, Django, React, Docker, and GCP</strong>, and integrate AI wherever it adds genuine value.
+    </p>
+    <div class="ctas">
+      <a href="https://linkedin.com/in/meenakshi-joshi-422070311" target="_blank" class="btn-v">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/Mitsy145" target="_blank" class="btn-o">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:joshimeenakshi998@gmail.com" class="btn-o">✉ Email Me</a>
+      <!-- <a href="tel:+918475894594" class="btn-o">📞 +91 84758 94594</a> -->
+    </div>
+    <div class="stats">
+      <div>
+        <div class="stat-n">6<span class="u">mo</span></div>
+        <div class="stat-l">Production Internship</div>
+      </div>
+      <div>
+        <div class="stat-n">2</div>
+        <div class="stat-l">Systems Shipped @ Emireq</div>
+      </div>
+      <div>
+        <div class="stat-n">20<span class="u">+</span></div>
+        <div class="stat-l">Countries · KYC Platform</div>
+      </div>
+      <div>
+        <div class="stat-n">80<span class="u">+</span></div>
+        <div class="stat-l">Students Mentored</div>
+      </div>
+      <div>
+        <div class="stat-n">10<span class="u">+</span></div>
+        <div class="stat-l">Expert Sessions Conducted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="eyebrow">// about me</div>
+      <h2 class="sec-title">Full-stack dev.<br/>AI integrator.<br/>Cybersec speaker.</h2>
+      <p>I'm a <strong>B.Tech CS student at Graphic Era Hill University, Bhimtal</strong> (graduating 2026), with six months of real production experience at Emireq — a UAE-based fintech startup — where I independently architected and deployed two backend systems used by actual clients.</p>
+      <p>My work spans <strong>financial platforms, AI-driven security systems, and distributed cloud infra</strong>. I've containerized production apps on Google Cloud Run, built KYC pipelines for 20+ jurisdictions, and shipped async task queues with Celery + Redis that handle real-world load.</p>
+      <p>Outside the codebase, I run cybersecurity and AI workshops across India through WeCode, mentoring students on malware detection, LLM automation, and ethical hacking. I use <strong>GitHub Copilot and Claude</strong> as part of my daily development workflow.</p>
+      <div class="about-tags">
+        <span class="tag">Bhimtal, Uttarakhand</span>
+        <span class="tag">CGPA 7.14</span>
+        <span class="tag">Open to Relocation</span>
+        <span class="tag">GirlScript GSoC '25</span>
+        <span class="tag">CodeAThon Top 10/200</span>
+      </div>
+    </div>
+    <div class="exp-card reveal reveal-d1">
+      <div class="exp-item">
+        <div class="exp-icon">💼</div>
+        <div>
+          <div class="exp-role">Software Developer Intern</div>
+          <div class="exp-co">Emireq · Dubai, UAE</div>
+          <div class="exp-period">Oct 2025 – Apr 2026 · Remote · Production</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-icon">👮</div>
+        <div>
+          <div class="exp-role">Cybersecurity Intern</div>
+          <div class="exp-co">Haryana Police</div>
+          <div class="exp-period">2025 · Phishing Detection ML Model</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-icon">🎤</div>
+        <div>
+          <div class="exp-role">Cybersecurity & AI Mentor</div>
+          <div class="exp-co">WeCode Coding Club</div>
+          <div class="exp-period">Apr 2024 – Present · Pan-India Sessions</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-icon">🌐</div>
+        <div>
+          <div class="exp-role">Open Source Contributor</div>
+          <div class="exp-co">GirlScript Summer of Code 2025</div>
+          <div class="exp-period">AI Auth · Django Security · Threat Detection</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-icon">🎓</div>
+        <div>
+          <div class="exp-role">B.Tech Computer Science</div>
+          <div class="exp-co">Graphic Era Hill University · Bhimtal</div>
+          <div class="exp-period">Jul 2022 – 2026 · CGPA 7.14</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE DETAIL -->
+<section id="experience">
+  <div class="eyebrow reveal">// work experience</div>
+  <h2 class="sec-title reveal">Where I've worked</h2>
+
+  <div class="exp-detail-card reveal">
+    <div class="exp-detail-header">
+      <div>
+        <div class="exp-detail-role">Software Developer Intern</div>
+        <div class="exp-detail-co">Emireq · Dubai, United Arab Emirates · Remote</div>
+      </div>
+      <div class="exp-detail-period">Oct 2025 – Apr 2026</div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Engineered a production-grade <strong>Accounting Module</strong> covering wallet management, payroll processing, purchases, and transactions using Django REST Framework, PostgreSQL, and Python REST APIs for real-world fintech clients.</li>
+      <li>Built a full-stack dashboard with Login/Register & JWT authentication using <strong>React.js + Django backend</strong>, implementing role-based access control and responsive UI for seamless user experience.</li>
+      <li>Containerized and deployed the full application on <strong>Google Cloud Run using Docker</strong>, establishing a CI/CD pipeline that ensured zero-downtime releases in production.</li>
+      <li>Delivered Package Management and Notification Services for a production-grade ML/AI backend, leveraging <strong>GitHub Copilot and Claude</strong> to accelerate development within the Django + React ecosystem.</li>
+    </ul>
+  </div>
+
+  <div class="exp-detail-card reveal">
+    <div class="exp-detail-header">
+      <div>
+        <div class="exp-detail-role">Cybersecurity & AI Speaker / Mentor</div>
+        <div class="exp-detail-co">WeCode Coding Club · Graphic Era Hill University</div>
+      </div>
+      <div class="exp-detail-period">Apr 2024 – Present</div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Conducted <strong>10+ expert sessions</strong> on AI-driven Cybersecurity, Digital Forensics, and Network Threat Analysis across Mumbai, Dehradun, and Bhimtal.</li>
+      <li>Mentored <strong>80+ students</strong> on implementing AI-based malware detection and security automation using TensorFlow, OpenCV, and Python Flask.</li>
+      <li>Led a team to develop a <strong>Cyber Threat Simulation Framework</strong> integrated with LangChain AI agents for automated log parsing and threat response.</li>
+      <li>Organized <strong>AI Security Bootcamps</strong> combining ethical hacking, LLM-based automation, and real-time SIEM integration (Splunk + Elastic Stack).</li>
+    </ul>
+  </div>
+
+  <div class="exp-detail-card reveal">
+    <div class="exp-detail-header">
+      <div>
+        <div class="exp-detail-role">Cybersecurity Intern</div>
+        <div class="exp-detail-co">Haryana Police</div>
+      </div>
+      <div class="exp-detail-period">2025</div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Assisted in <strong>digital forensics and cybercrime investigations</strong> alongside law enforcement personnel.</li>
+      <li>Designed a <strong>phishing detection ML model</strong> for real-time email threat analysis, deployed in an active law enforcement environment.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="eyebrow reveal">// projects</div>
+  <h2 class="sec-title reveal">Things I've actually built</h2>
+  <p class="sec-sub reveal">Production systems, internship deliverables, and personal projects — all with real deployments and measurable outcomes.</p>
+  <div class="projects-grid">
+
+    <div class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-icon">💳</div>
+        <span class="proj-badge badge-prod">⚡ Production</span>
+      </div>
+      <div class="proj-title">Emireq Accounting Service</div>
+      <div class="proj-date">Feb 2026 · Emireq Internship</div>
+      <div class="proj-desc">Core financial accounting module for a Dubai fintech. Wallet management, payroll, purchases and transactions with async PostgreSQL, Alembic migrations, and Swagger/ReDoc docs. Deployed on GCP Cloud Run with zero-downtime CI/CD.</div>
+      <div class="proj-stack">
+        <span class="chip">FastAPI</span><span class="chip">PostgreSQL</span><span class="chip">SQLAlchemy</span>
+        <span class="chip">React.js</span><span class="chip">Docker</span><span class="chip">Cloud Run</span><span class="chip">JWT</span>
+      </div>
+      <div class="proj-links"><span class="plink">🔒 Private · Emireq IP</span></div>
+    </div>
+
+    <div class="proj-card reveal reveal-d1">
+      <div class="proj-head">
+        <div class="proj-icon">🌍</div>
+        <span class="proj-badge badge-prod">⚡ Production</span>
+      </div>
+      <div class="proj-title">Global Company Formation Backend</div>
+      <div class="proj-date">Mar 2026 · Emireq Internship</div>
+      <div class="proj-desc">Independently built a production FastAPI backend for company incorporation, KYC, and banking across 20+ jurisdictions. Multi-step workflows, secure AWS S3 uploads, stakeholder management, Celery + Redis async tasks, and real-time dashboard APIs.</div>
+      <div class="proj-stack">
+        <span class="chip">FastAPI</span><span class="chip">Python 3.11</span><span class="chip">PostgreSQL</span>
+        <span class="chip">AWS S3</span><span class="chip">Celery</span><span class="chip">Redis</span><span class="chip">Docker</span>
+      </div>
+      <div class="proj-links"><span class="plink">🔒 Private · Emireq IP</span></div>
+    </div>
+
+    <div class="proj-card reveal reveal-d2">
+      <div class="proj-head">
+        <div class="proj-icon">☁️</div>
+        <span class="proj-badge badge-proj">Personal Project</span>
+      </div>
+      <div class="proj-title">Cloud-Based Multi-Language Code Execution Platform</div>
+      <div class="proj-date">December 2024</div>
+      <div class="proj-desc">Distributed cloud IDE supporting 10+ languages with isolated execution environments. Kubernetes orchestration for dynamic resource allocation, RabbitMQ for async job scheduling, Redis session caching. Boosted throughput 38% via microservice decomposition.</div>
+      <div class="proj-stack">
+        <span class="chip">Django REST</span><span class="chip">Node.js</span><span class="chip">FastAPI</span>
+        <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">RabbitMQ</span><span class="chip">React.js</span>
+      </div>
+      <div class="proj-links"><a href="https://github.com/Mitsy145" target="_blank" class="plink">↗ GitHub</a></div>
+    </div>
+
+    <div class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-icon">🛡️</div>
+        <span class="proj-badge badge-proj">Personal Project</span>
+      </div>
+      <div class="proj-title">AI-Based Cyber Threat Detection System</div>
+      <div class="proj-date">April 2025</div>
+      <div class="proj-desc">Threat classification engine combining Decision Trees, Random Forest, and CNN-based packet inspection. Reduced incident response time 47% using FastAPI microservices. Integrated Wireshark packet capture and MITRE ATT&CK-based security analytics dashboard with ELK Stack.</div>
+      <div class="proj-stack">
+        <span class="chip">FastAPI</span><span class="chip">TensorFlow</span><span class="chip">Scikit-learn</span>
+        <span class="chip">Wireshark</span><span class="chip">ELK Stack</span><span class="chip">React.js</span>
+      </div>
+      <div class="proj-links"><a href="https://github.com/Mitsy145" target="_blank" class="plink">↗ GitHub</a></div>
+    </div>
+
+    <div class="proj-card reveal reveal-d1">
+      <div class="proj-head">
+        <div class="proj-icon">⚙️</div>
+        <span class="proj-badge badge-proj">Personal Project</span>
+      </div>
+      <div class="proj-title">Malware-Resistant JIT Compiler</div>
+      <div class="proj-date">November 2025</div>
+      <div class="proj-desc">JIT compiler with malware signature detection and sandbox execution via custom static analysis engines. AST parsing to detect harmful code pre-runtime. TensorRT-based AI module to classify and quarantine suspicious operations. Enhanced code safety by 60%.</div>
+      <div class="proj-stack">
+        <span class="chip">C++</span><span class="chip">WebAssembly</span><span class="chip">TensorRT</span>
+        <span class="chip">Django Channels</span><span class="chip">JavaScript</span>
+      </div>
+      <div class="proj-links"><a href="https://github.com/Mitsy145" target="_blank" class="plink">↗ GitHub</a></div>
+    </div>
+
+    <div class="proj-card reveal reveal-d2">
+      <div class="proj-head">
+        <div class="proj-icon">🕵️</div>
+        <span class="proj-badge badge-intern">Internship</span>
+      </div>
+      <div class="proj-title">Phishing Detection ML Model</div>
+      <div class="proj-date">2025 · Haryana Police</div>
+      <div class="proj-desc">Real-time email phishing detection model deployed in an active law enforcement environment. Assisted digital forensics and cybercrime investigations alongside Haryana Police cybersecurity team.</div>
+      <div class="proj-stack">
+        <span class="chip">Python</span><span class="chip">Scikit-learn</span><span class="chip">ML</span><span class="chip">NLP</span>
+      </div>
+      <div class="proj-links"><span class="plink">🔒 Law Enforcement Deployment</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="eyebrow reveal">// tech stack</div>
+  <h2 class="sec-title reveal">What I build with</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <div class="sg-title">Languages</div>
+      <div class="pills">
+        <span class="pill">Python</span><span class="pill">JavaScript</span><span class="pill">TypeScript</span>
+        <span class="pill">C++</span><span class="pill">Java</span><span class="pill">C</span>
+        <span class="pill">PHP</span><span class="pill">Bash</span><span class="pill">SQL</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">Backend Frameworks</div>
+      <div class="pills">
+        <span class="pill">FastAPI</span><span class="pill">Django</span><span class="pill">Django REST</span>
+        <span class="pill">Flask</span><span class="pill">Node.js</span><span class="pill">Express.js</span>
+        <span class="pill">Next.js</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">Frontend</div>
+      <div class="pills">
+        <span class="pill">React.js</span><span class="pill">Vite</span><span class="pill">Tailwind CSS</span>
+        <span class="pill">Recharts</span><span class="pill">Next.js</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">AI / ML & GenAI</div>
+      <div class="pills">
+        <span class="pill">LangChain</span><span class="pill">LlamaIndex</span><span class="pill">OpenAI API</span>
+        <span class="pill">Hugging Face</span><span class="pill">TensorFlow</span><span class="pill">PyTorch</span>
+        <span class="pill">Scikit-learn</span><span class="pill">RAG Pipelines</span><span class="pill">TensorRT</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">Data & Databases</div>
+      <div class="pills">
+        <span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span>
+        <span class="pill">SQLAlchemy</span><span class="pill">Alembic</span><span class="pill">Pandas</span>
+        <span class="pill">NumPy</span><span class="pill">Apache Solr</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">DevOps & Cloud</div>
+      <div class="pills">
+        <span class="pill">Docker</span><span class="pill">Kubernetes</span><span class="pill">GitHub Actions</span>
+        <span class="pill">AWS EC2/S3</span><span class="pill">Google Cloud Run</span>
+        <span class="pill">CI/CD</span><span class="pill">RabbitMQ</span><span class="pill">Celery</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">Security & SIEM</div>
+      <div class="pills">
+        <span class="pill">Wireshark</span><span class="pill">Splunk</span><span class="pill">ELK Stack</span>
+        <span class="pill">Metasploit</span><span class="pill">Snort</span><span class="pill">Suricata</span>
+        <span class="pill">Ethical Hacking</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title">AI Dev Tools</div>
+      <div class="pills">
+        <span class="pill">GitHub Copilot</span><span class="pill">Claude</span>
+        <span class="pill">Prompt Engineering</span><span class="pill">AI-assisted Dev</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="eyebrow reveal">// recognition</div>
+  <h2 class="sec-title reveal">Achievements & Milestones</h2>
+  <div class="ach-grid">
+    <div class="ach-card reveal">
+      <div class="ach-icon">🏆</div>
+      <div>
+        <div class="ach-title">CodeAThon — Top 10 of 200</div>
+        <div class="ach-sub">Competitive Programming</div>
+        <div class="ach-desc">Ranked Top 10 out of 200 participants by building a real-time fraud detection API using FastAPI and TensorFlow.</div>
+      </div>
+    </div>
+    <div class="ach-card reveal reveal-d1">
+      <div class="ach-icon">💼</div>
+      <div>
+        <div class="ach-title">Production Deployment @ Emireq</div>
+        <div class="ach-sub">Oct 2025 – Apr 2026 · Dubai Fintech</div>
+        <div class="ach-desc">Architected and deployed a production-grade Accounting Module on GCR serving real clients, as a first-time intern.</div>
+      </div>
+    </div>
+    <div class="ach-card reveal reveal-d2">
+      <div class="ach-icon">👮</div>
+      <div>
+        <div class="ach-title">Live ML Deployment · Haryana Police</div>
+        <div class="ach-sub">2025 · Law Enforcement</div>
+        <div class="ach-desc">Phishing detection ML model deployed in an active cybercrime investigation environment alongside law enforcement.</div>
+      </div>
+    </div>
+    <div class="ach-card reveal">
+      <div class="ach-icon">🌸</div>
+      <div>
+        <div class="ach-title">GirlScript Summer of Code 2025</div>
+        <div class="ach-sub">Open Source Contributor</div>
+        <div class="ach-desc">Developed open-source modules on AI-based authentication, Django REST security, and threat detection automation.</div>
+      </div>
+    </div>
+    <div class="ach-card reveal reveal-d1">
+      <div class="ach-icon">🎤</div>
+      <div>
+        <div class="ach-title">10+ Expert Sessions · Pan-India</div>
+        <div class="ach-sub">Mumbai · Dehradun · Bhimtal</div>
+        <div class="ach-desc">Conducted AI & Cybersecurity sessions across major Indian cities, mentoring 80+ students on malware detection and LLM automation.</div>
+      </div>
+    </div>
+    <div class="ach-card reveal reveal-d2">
+      <div class="ach-icon">🔒</div>
+      <div>
+        <div class="ach-title">Cyber Threat Simulation Framework</div>
+        <div class="ach-sub">WeCode · LangChain</div>
+        <div class="ach-desc">Led a team to build a LangChain-powered cyber threat simulation framework with automated log parsing and AI-driven threat response.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKING -->
+<section id="speaking">
+  <div class="eyebrow reveal">// beyond code</div>
+  <h2 class="sec-title reveal">Speaking & Mentorship</h2>
+  <p class="sec-sub reveal">I believe in building people as much as building products.</p>
+  <div class="speak-grid">
+    <div class="speak-card reveal">
+      <div class="speak-icon">🤖</div>
+      <div>
+        <div class="speak-title">AI-Driven Cybersecurity Sessions</div>
+        <div class="speak-meta">Mumbai · Dehradun · Bhimtal · 2024–Present</div>
+        <div class="speak-desc">Expert sessions on AI-driven security, digital forensics, and network threat analysis for students and early professionals.</div>
+      </div>
+    </div>
+    <div class="speak-card reveal reveal-d1">
+      <div class="speak-icon">🔐</div>
+      <div>
+        <div class="speak-title">AI Security Bootcamps</div>
+        <div class="speak-meta">WeCode · Ethical Hacking + LLM Automation</div>
+        <div class="speak-desc">Organized intensive bootcamps combining ethical hacking, LLM-based automation, and real-time SIEM integration with Splunk + Elastic.</div>
+      </div>
+    </div>
+    <div class="speak-card reveal reveal-d2">
+      <div class="speak-icon">🧑‍🏫</div>
+      <div>
+        <div class="speak-title">Malware Detection Mentorship</div>
+        <div class="speak-meta">80+ Students · TensorFlow · OpenCV · Flask</div>
+        <div class="speak-desc">Mentored students on implementing AI-based malware detection and security automation — from model training to deployment.</div>
+      </div>
+    </div>
+    <div class="speak-card reveal">
+      <div class="speak-icon">🤝</div>
+      <div>
+        <div class="speak-title">LangChain Threat Simulation — Team Lead</div>
+        <div class="speak-meta">WeCode Coding Club</div>
+        <div class="speak-desc">Led team building a LangChain-integrated cyber threat simulation framework with automated log parsing and AI threat response agents.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="eyebrow reveal" style="text-align:center">// let's connect</div>
+    <h2 class="sec-title reveal" style="text-align:center">Open to the right opportunity</h2>
+    <p class="reveal" style="color:var(--muted);line-height:1.8;margin-top:1rem;">
+      Looking for <strong style="color:var(--text)">AI product, backend, or full-stack roles</strong> — especially at early-stage startups building something real.
+      I shipped production code at a fintech startup as a fresher. I learn fast and don't need hand-holding.
+    </p>
+    <div class="contact-links reveal">
+      <a href="https://linkedin.com/in/meenakshi-joshi-422070311" target="_blank" class="clink">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/Mitsy145" target="_blank" class="clink">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:joshimeenakshi998@gmail.com" class="clink">✉ joshimeenakshi998@gmail.com</a>
+      <!-- <a href="tel:+918475894594" class="clink">📞 +91 84758 94594</a> -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Meenakshi Joshi · Full-Stack & AI Developer · Bhimtal, Uttarakhand · India · 2026</p>
+</footer>
+
+<script>
+  const roles = ['Full-Stack Developer','AI Engineer','Backend Architect','Cybersec Speaker','Fintech Builder','Open Source Contributor'];
+  let ri = 0, ci = 0, del = false;
+  const el = document.getElementById('tw');
+  function type() {
+    const w = roles[ri];
+    if (!del) { el.textContent = w.slice(0, ci+1); ci++; if(ci===w.length){del=true;setTimeout(type,1700);return;} }
+    else { el.textContent = w.slice(0, ci-1); ci--; if(ci===0){del=false;ri=(ri+1)%roles.length;} }
+    setTimeout(type, del ? 50 : 78);
+  }
+  type();
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
